@@ -1,3 +1,4 @@
+import java.util.Objects;
 
 public class Especialitat {
 	private String nom;
@@ -43,6 +44,31 @@ public class Especialitat {
 
 	public void setEdatMax(int edatMax) {
 		this.edatMax = edatMax;
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(nom);
+
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		Especialitat other = (Especialitat) obj;
+
+		return Objects.equals(nom, other.nom);
+
 	}
 
 }
