@@ -10,8 +10,8 @@ public class Hospital {
 	private Set<Especialitat> especialidades;
 	private Set<Cita> citas;
 
-	public Hospital(String nom, String direc) {
-
+	public Hospital(String nom, String direc) throws Exception {
+		if(nom.isBlank() || direc.isBlank()) throw new Exception("Nombre y direccion del hospital son obligatorios");
 		this.nom = nom;
 		this.direc = direc;
 		this.pacientes = new HashSet<>();
@@ -21,4 +21,10 @@ public class Hospital {
 
 	}
 
+	@Override
+	public String toString() {
+		return "Hospital [nom=" + nom + ", direc=" + direc + ", pacientes=" + pacientes + ", doctores=" + doctores
+				+ ", especialidades=" + especialidades + ", citas=" + citas + "]";
+	}
+	
 }

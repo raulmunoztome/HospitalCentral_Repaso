@@ -17,6 +17,7 @@ public class Pacient extends Persona {
 	public Pacient(String nom, String dni, LocalDate naixement, String telefon, String codi) throws Exception {
 		super(nom, dni, naixement, telefon);
 		if (!Pattern.matches("^[A-Za-z]{3}[0-9]{8}$", codi))
+			//creo que hay que hacer exception personalizada, PREGUNTAR EN CLASE
 			throw new Exception("Error en el codigo del paciente");
 		this.codi = codi;
 		++totalPacientesCreados;
@@ -67,4 +68,10 @@ public class Pacient extends Persona {
 
 	}
 
+	@Override
+	public String toString() {
+		return "Pacient [codi=" + codi + ", historialMedico=" + historialMedico + ", nom=" + nom + ", dni=" + dni
+				+ ", naixement=" + naixement + ", telefon=" + telefon + "]";
+	}
+	
 }

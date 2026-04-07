@@ -6,10 +6,11 @@ public class Especialitat {
 	private int edatMin;
 	private int edatMax;
 
-	public Especialitat(String nom, String desc, int edatMin, int edatMax) {
-
+	public Especialitat(String nom, String desc, int edatMin, int edatMax) throws Exception {
+		if(nom.isBlank()) throw new Exception("Nombre de la especialidad obligatorio");
 		this.nom = nom;
 		this.desc = desc;
+		if(edatMin < 0) throw new Exception("Edad minima erronea: "+edatMin);
 		this.edatMin = edatMin;
 		this.edatMax = edatMax;
 	}
@@ -27,7 +28,7 @@ public class Especialitat {
 	}
 
 	public void setDesc(String desc) {
-		this.desc = desc;
+		if(!desc.isBlank())this.desc = desc;
 	}
 
 	public int getEdatMin() {
@@ -35,7 +36,7 @@ public class Especialitat {
 	}
 
 	public void setEdatMin(int edatMin) {
-		this.edatMin = edatMin;
+		if(edatMin < edatMax)this.edatMin = edatMin;
 	}
 
 	public int getEdatMax() {
@@ -43,7 +44,7 @@ public class Especialitat {
 	}
 
 	public void setEdatMax(int edatMax) {
-		this.edatMax = edatMax;
+		if(edatMax > edatMin)this.edatMax = edatMax;
 	}
 
 	@Override
@@ -70,5 +71,11 @@ public class Especialitat {
 		return Objects.equals(nom, other.nom);
 
 	}
+
+	@Override
+	public String toString() {
+		return "Especialitat [nom=" + nom + ", desc=" + desc + ", edatMin=" + edatMin + ", edatMax=" + edatMax + "]";
+	}
+	
 
 }
