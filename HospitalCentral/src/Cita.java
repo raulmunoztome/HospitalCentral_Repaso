@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Period;
 import java.util.Objects;
 
 public class Cita {
@@ -14,23 +15,52 @@ public class Cita {
 		LocalDateTime fechaHoraCita = LocalDateTime.of(data, hora);
 		this.paciente = paciente;
 		this.doctor = doctor;
-		if(fechaHoraCita.isBefore(LocalDateTime.now())) throw new Exception("Fecha de la cita no válida");
+		if (fechaHoraCita.isBefore(LocalDateTime.now()))
+			throw new Exception("Fecha de la cita no válida");
 		this.data = data;
 		this.hora = hora;
-		this.estat= EstadoCita.PENDIENTE;
+		this.estat = EstadoCita.PENDIENTE;
 	}
+
+	/**
+	 * 
+	 * @return true si era posible cancelar. False si está ya cancelada
+	 */
 	public boolean anularCita() {
-		
-		if(estat != EstadoCita.REALIZADA) {
+
+		if (estat != EstadoCita.REALIZADA) {
 			this.estat = EstadoCita.CANCELADA;
 			return true;
-			
+
 		}
 		return false;
 	}
+
 	public void visitaRealizada() {
-		
-		if(estat != EstadoCita.CANCELADA)estat = EstadoCita.REALIZADA;
+
+		if (estat != EstadoCita.CANCELADA)
+			estat = EstadoCita.REALIZADA;
+	}
+
+	/**
+	 * 
+	 * @return true si la edad del paciente corresponde en el rango de edad min o
+	 *         max
+	 */
+
+	public boolean comprobarEdad() {
+
+		LocalDate cliente = paciente.getNaixement();
+		LocalDate ahora = LocalDate.now();
+		int edadCliente = Period.between(cliente, ahora).getYears();
+		int min = doctor.getEspecialitat().getEdatMin();
+		int max = doctor.getEspecialitat().getEdatMax();
+
+		if (edadCliente >= min && edadCliente <= max) {
+			return true;
+		}
+		return false;
+
 	}
 
 	public Pacient getPaciente() {
@@ -54,7 +84,8 @@ public class Cita {
 	}
 
 	public void setData(LocalDate data) {
-		if(data.isAfter(LocalDate.now()))this.data = data;
+		if (data.isAfter(LocalDate.now()))
+			this.data = data;
 	}
 
 	public LocalTime getHora() {
@@ -63,7 +94,8 @@ public class Cita {
 
 	public void setHora(LocalTime hora) {
 		LocalDateTime fechaHoraCita = LocalDateTime.of(data, hora);
-		if(fechaHoraCita.isAfter(LocalDateTime.now()))this.hora = hora;
+		if (fechaHoraCita.isAfter(LocalDateTime.now()))
+			this.hora = hora;
 	}
 
 	public EstadoCita getEstat() {
@@ -73,7 +105,7 @@ public class Cita {
 	public void setEstat(EstadoCita estat) {
 		this.estat = estat;
 	}
-	
+
 	@Override
 	public int hashCode() {
 
@@ -95,10 +127,11 @@ public class Cita {
 
 		Cita other = (Cita) obj;
 
-		return Objects.equals(data, other.data) && Objects.equals(hora, other.hora) && Objects.equals(paciente.getDni(), other.paciente.getDni());
+		return Objects.equals(data, other.data) && Objects.equals(hora, other.hora)
+				&& Objects.equals(paciente.getDni(), other.paciente.getDni());
 
 	}
-	
+
 	public int compareTo(Cita c) {
 
 		// Primero comprar las clases
@@ -106,10 +139,11 @@ public class Cita {
 		if (comparacionData != 0) {
 			return comparacionData;
 		}
-		
+
 		int comparacionHora = this.getHora().compareTo(c.getHora());
-		if(comparacionHora != 0) return comparacionHora;
-		
+		if (comparacionHora != 0)
+			return comparacionHora;
+
 		return this.paciente.getDni().compareTo(c.getPaciente().getDni());
 	}
 
@@ -118,6 +152,5 @@ public class Cita {
 		return "Cita [paciente=" + paciente + ", doctor=" + doctor + ", data=" + data + ", hora=" + hora + ", estat="
 				+ estat + "]";
 	}
-	
-	
+
 }

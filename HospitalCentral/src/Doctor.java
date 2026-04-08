@@ -7,7 +7,7 @@ public class Doctor extends Persona {
 	private static int doctoresCreados;
 
 	public Doctor(String nom, String dni, LocalDate naixement, String telefon, Especialitat especialitat,
-			int codiAutomatic) {
+			int codiAutomatic) throws Exception {
 		super(nom, dni, naixement, telefon);
 		this.especialitat = especialitat;
 		this.codi = doctoresCreados;
