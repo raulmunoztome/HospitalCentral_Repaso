@@ -12,7 +12,7 @@ public abstract class Persona {
 		this.nom = nom;
 		if(dni.isBlank()) throw new Exception("Error en el DNI: "+dni);
 		this.dni = dni;
-		if(naixement == null || LocalDate.now().isAfter(naixement)) throw new Exception("error en la fecha de nacimiento: "+naixement);
+		if(naixement == null || naixement.isAfter(LocalDate.now())) throw new Exception("error en la fecha de nacimiento: "+naixement);
 		this.naixement = naixement;
 		if(telefon.isBlank()) throw new Exception("Error en el número de telefono: "+telefon);
 		this.telefon = telefon;

@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.time.Period;
 import java.util.Objects;
 
-public class Cita {
+public class Cita implements Comparable<Cita>{
 	private Pacient paciente;
 	private Doctor doctor;
 	private LocalDate data;
@@ -35,7 +35,9 @@ public class Cita {
 		}
 		return false;
 	}
-
+/**
+ * Si la cita NO está cancelada, la marca como realizada
+ */
 	public void visitaRealizada() {
 
 		if (estat != EstadoCita.CANCELADA)
@@ -131,10 +133,10 @@ public class Cita {
 				&& Objects.equals(paciente.getDni(), other.paciente.getDni());
 
 	}
-
+	@Override
 	public int compareTo(Cita c) {
 
-		// Primero comprar las clases
+		// Primero por fecha, luego hora, y luego por dni de paciente
 		int comparacionData = this.getData().compareTo(c.getData());
 		if (comparacionData != 0) {
 			return comparacionData;
@@ -149,8 +151,7 @@ public class Cita {
 
 	@Override
 	public String toString() {
-		return "Cita [paciente=" + paciente + ", doctor=" + doctor + ", data=" + data + ", hora=" + hora + ", estat="
-				+ estat + "]";
+		return "Cita (estado: "+estat+")[paciente=" + paciente + ", doctor=" + doctor + ", data=" + data + ", hora=" + hora + "]";
 	}
 
 }

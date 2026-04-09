@@ -11,7 +11,7 @@ public class InvalidCodiPacientException extends Exception {
 
 		String error = super.getMessage();
 
-		error += "\nMissatge personalitzat";
+		error += "\nMissatge personalitzat ";
 
 		return error;
 

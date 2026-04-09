@@ -28,7 +28,7 @@ public class Hospital {
 	/**
 	 * 
 	 * @param p Objeto paciente
-	 * @return true si lo ha podido añadir, false si ya está
+	 * @return true si lo ha podido añadir
 	 */
 	public boolean sumarPaciente(Pacient p) {
 
@@ -47,31 +47,33 @@ public class Hospital {
 	}
 
 	public boolean sumarEspecialidad(Especialitat e) {
-		return 
+		
+		return especialidades.add(e);
 	}
 
 	/**
-	 * 
+	 * Elimina al paciente (si existe) y sus citas registradas
 	 * @param p Objeto paciente
-	 * @return true/false si estaba en la lista
+	 * @return true si estaba en la lista
 	 */
 	public boolean quitarPaciente(Pacient p) {
 
-		boolean entrado = false;
 		if (pacientes.contains(p)) {
+			
 			Iterator<Cita> itr = citas.iterator();
-
+			Cita element;
+			
 			while (itr.hasNext()) {
 				// itr para quitar las citas
-				Cita element = itr.next();
+				element = itr.next();
 				if (element.getPaciente().equals(p)) {
 					itr.remove();
-					entrado = true;
 				}
 
 			}
+			return pacientes.remove(p);
 		}
-		return entrado;
+		return false;
 	}
 
 	/**
@@ -92,6 +94,15 @@ public class Hospital {
 	public List<Doctor> infoDoctor() {
 
 		List<Doctor> info = new ArrayList<>(doctores);
+		return info;
+	}
+	/**
+	 * 
+	 * @return ArrayList de las especialidades del hospital
+	 */
+	public List<Especialitat> infoEspecialitat() {
+
+		List<Especialitat> info = new ArrayList<>(especialidades);
 		return info;
 	}
 
