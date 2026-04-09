@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -46,9 +47,24 @@ public class Hospital {
 
 	}
 
+	/**
+	 * 
+	 * @param e Objeto Especialitat
+	 * @return true si se ha podido añadir
+	 */
 	public boolean sumarEspecialidad(Especialitat e) {
 
 		return especialidades.add(e);
+	}
+
+	/**
+	 * 
+	 * @param c Objeto cita
+	 * @return true si se ha podido añadir
+	 */
+	public boolean sumarCita(Cita c) {
+
+		return citas.add(c);
 	}
 
 	/**
@@ -106,6 +122,19 @@ public class Hospital {
 
 	/**
 	 * 
+	 * @param c Objeto Cita
+	 * @return true si estaba en la lista de citas y se ha eliminado
+	 */
+	public boolean quitarCita(Cita c) {
+
+		if (citas.contains(c)) {
+			return citas.remove(c);
+		}
+		return false;
+	}
+
+	/**
+	 * 
 	 * @return Devuelve un arrayList de los pacientes actuales
 	 */
 	public List<Pacient> infoPaciente() {
@@ -142,6 +171,15 @@ public class Hospital {
 	public List<Cita> infoCitas() {
 		List<Cita> infoC = new ArrayList<>(citas);
 		return infoC;
+	}
+
+	public List<Cita> citas(LocalDate fecha) {
+		List<Cita> citasFecha = new ArrayList<>();
+		for (Cita c : citas) {
+			if (c.getData().equals(fecha))
+				citasFecha.add(c);
+		}
+		return citasFecha;
 	}
 
 	/**

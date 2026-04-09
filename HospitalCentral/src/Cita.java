@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.time.Period;
 import java.util.Objects;
 
-public class Cita implements Comparable<Cita>{
+public class Cita implements Comparable<Cita> {
 	private Pacient paciente;
 	private Doctor doctor;
 	private LocalDate data;
@@ -35,9 +35,10 @@ public class Cita implements Comparable<Cita>{
 		}
 		return false;
 	}
-/**
- * Si la cita NO está cancelada, la marca como realizada
- */
+
+	/**
+	 * Si la cita NO está cancelada, la marca como realizada
+	 */
 	public void visitaRealizada() {
 
 		if (estat != EstadoCita.CANCELADA)
@@ -111,7 +112,7 @@ public class Cita implements Comparable<Cita>{
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(data, hora, paciente.getDni());
+		return Objects.hash(data, hora, doctor.getDni());
 
 	}
 
@@ -130,13 +131,14 @@ public class Cita implements Comparable<Cita>{
 		Cita other = (Cita) obj;
 
 		return Objects.equals(data, other.data) && Objects.equals(hora, other.hora)
-				&& Objects.equals(paciente.getDni(), other.paciente.getDni());
+				&& Objects.equals(doctor.getDni(), other.doctor.getDni());
 
 	}
+
 	@Override
 	public int compareTo(Cita c) {
 
-		// Primero por fecha, luego hora, y luego por dni de paciente
+		// Primero por fecha, luego hora, y luego por dni del doctor
 		int comparacionData = this.getData().compareTo(c.getData());
 		if (comparacionData != 0) {
 			return comparacionData;
@@ -146,12 +148,13 @@ public class Cita implements Comparable<Cita>{
 		if (comparacionHora != 0)
 			return comparacionHora;
 
-		return this.paciente.getDni().compareTo(c.getPaciente().getDni());
+		return this.doctor.getDni().compareTo(c.getDoctor().getDni());
 	}
 
 	@Override
 	public String toString() {
-		return "Cita (estado: "+estat+")[paciente=" + paciente + ", doctor=" + doctor + ", data=" + data + ", hora=" + hora + "]";
+		return "Cita (estado: " + estat + ")[paciente=" + paciente + ", doctor=" + doctor + ", data=" + data + ", hora="
+				+ hora + "]";
 	}
 
 }

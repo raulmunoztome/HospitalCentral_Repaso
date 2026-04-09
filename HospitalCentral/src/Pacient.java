@@ -20,6 +20,7 @@ public class Pacient extends Persona {
 			throw new InvalidCodiPacientException("Error de codigo de paciente");
 
 		this.codi = codi;
+		this.historialMedico = "";
 		++totalPacientesCreados;
 	}
 
@@ -66,6 +67,11 @@ public class Pacient extends Persona {
 
 		return Objects.equals(codi, other.codi);
 
+	}
+
+	public static String formatoCSV(Pacient p) {
+		return p.getNom() + "; " + p.getDni() + "; " + p.getNaixement() + "; " + p.getTelefon() + "; " + p.getCodi()
+				+ "; " + p.getHistorialMedico();
 	}
 
 	@Override
