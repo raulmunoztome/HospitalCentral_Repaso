@@ -47,22 +47,23 @@ public class Hospital {
 	}
 
 	public boolean sumarEspecialidad(Especialitat e) {
-		
+
 		return especialidades.add(e);
 	}
 
 	/**
 	 * Elimina al paciente (si existe) y sus citas registradas
+	 * 
 	 * @param p Objeto paciente
 	 * @return true si estaba en la lista
 	 */
 	public boolean quitarPaciente(Pacient p) {
 
 		if (pacientes.contains(p)) {
-			
+
 			Iterator<Cita> itr = citas.iterator();
 			Cita element;
-			
+
 			while (itr.hasNext()) {
 				// itr para quitar las citas
 				element = itr.next();
@@ -72,6 +73,33 @@ public class Hospital {
 
 			}
 			return pacientes.remove(p);
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param d Objeto doctor
+	 * @return true si estaba en la lista y se ha eliminado
+	 */
+	public boolean quitarDoctor(Doctor d) {
+
+		if (doctores.contains(d)) {
+			return doctores.remove(d);
+		}
+		return false;
+
+	}
+
+	/**
+	 * 
+	 * @param e Objeto Especialidad
+	 * @return true si estaba en la lista y se ha podido eliminar
+	 */
+	public boolean quitarEspecialidad(Especialitat e) {
+
+		if (especialidades.contains(e)) {
+			return especialidades.remove(e);
 		}
 		return false;
 	}
@@ -93,17 +121,27 @@ public class Hospital {
 
 	public List<Doctor> infoDoctor() {
 
-		List<Doctor> info = new ArrayList<>(doctores);
-		return info;
+		List<Doctor> infoD = new ArrayList<>(doctores);
+		return infoD;
 	}
+
 	/**
 	 * 
 	 * @return ArrayList de las especialidades del hospital
 	 */
 	public List<Especialitat> infoEspecialitat() {
 
-		List<Especialitat> info = new ArrayList<>(especialidades);
-		return info;
+		List<Especialitat> infoE = new ArrayList<>(especialidades);
+		return infoE;
+	}
+
+	/**
+	 * 
+	 * @return ArraList de las citas del hospital
+	 */
+	public List<Cita> infoCitas() {
+		List<Cita> infoC = new ArrayList<>(citas);
+		return infoC;
 	}
 
 	/**
