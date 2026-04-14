@@ -5,8 +5,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,12 +27,12 @@ public class GestorCSV implements GestorFitxers {
 			String info;
 			while ((linia = bReader.readLine()) != null) {
 
-				String nom, dni, telefon, codi, historic;
-				LocalDate fechaNaix;
+				String nom, dni, telefon, codi, historic, fechaNaix;
 				String[] elemento = linia.split("; ");
+
 				nom = elemento[0];
 				dni = elemento[1];
-				fechaNaix = LocalDate.parse(elemento[2], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+				fechaNaix = elemento[2];
 				telefon = elemento[3];
 				codi = elemento[4];
 				historic = elemento[5];

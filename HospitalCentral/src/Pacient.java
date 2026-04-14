@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -7,14 +7,14 @@ public class Pacient extends Persona {
 	private String historialMedico;
 	private static int totalPacientesCreados = 0;
 
-	public Pacient(String nom, String dni, LocalDate naixement, String telefon, String codi, String historial)
+	public Pacient(String nom, String dni, String naixement, String telefon, String codi, String historial)
 			throws Exception {
 		this(nom, dni, naixement, telefon, codi);
 		this.historialMedico = historial;
 
 	}
 
-	public Pacient(String nom, String dni, LocalDate naixement, String telefon, String codi) throws Exception {
+	public Pacient(String nom, String dni, String naixement, String telefon, String codi) throws Exception {
 		super(nom, dni, naixement, telefon);
 		if (!Pattern.matches("^[A-Za-z]{3}[0-9]{8}$", codi))
 			throw new InvalidCodiPacientException("Error de codigo de paciente");
@@ -70,7 +70,10 @@ public class Pacient extends Persona {
 	}
 
 	public static String formatoCSV(Pacient p) {
-		return p.getNom() + "; " + p.getDni() + "; " + p.getNaixement() + "; " + p.getTelefon() + "; " + p.getCodi()
+
+		DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String fechaComoCadena = p.getNaixement().format(formateador);
+		return p.getNom() + "; " + p.getDni() + "; " + fechaComoCadena + "; " + p.getTelefon() + "; " + p.getCodi()
 				+ "; " + p.getHistorialMedico();
 	}
 

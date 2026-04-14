@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -25,6 +26,10 @@ public class Hospital {
 		this.citas = new TreeSet<>();
 
 	}
+
+	public Hospital() {
+
+	};
 
 	/**
 	 * 
@@ -125,10 +130,11 @@ public class Hospital {
 	 * @param c Objeto Cita
 	 * @return true si estaba en la lista de citas y se ha eliminado
 	 */
-	public boolean quitarCita(Cita c) {
-
-		if (citas.contains(c)) {
-			return citas.remove(c);
+	public boolean quitarCita(String dni, LocalDate data, LocalTime hora) {
+		for (Cita c : citas) {
+			if (c.getData().equals(data) && c.getPaciente().dni.equals(dni) && c.getHora().equals(hora)) {
+				return citas.remove(c);
+			}
 		}
 		return false;
 	}
@@ -173,7 +179,12 @@ public class Hospital {
 		return infoC;
 	}
 
-	public List<Cita> citas(LocalDate fecha) {
+	/**
+	 * 
+	 * @param fecha donde obtener las citas
+	 * @return ArrayList con las citas del dia indicado
+	 */
+	public List<Cita> citasDeHoy(LocalDate fecha) {
 		List<Cita> citasFecha = new ArrayList<>();
 		for (Cita c : citas) {
 			if (c.getData().equals(fecha))

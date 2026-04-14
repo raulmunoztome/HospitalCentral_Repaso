@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class Doctor extends Persona {
@@ -6,7 +5,8 @@ public class Doctor extends Persona {
 	private int codi;
 	private static int doctoresCreados;
 
-	public Doctor(String nom, String dni, LocalDate naixement, String telefon, Especialitat especialitat) throws Exception {
+	public Doctor(String nom, String dni, String naixement, String telefon, Especialitat especialitat)
+			throws Exception {
 		super(nom, dni, naixement, telefon);
 		this.especialitat = especialitat;
 		this.codi = doctoresCreados;
