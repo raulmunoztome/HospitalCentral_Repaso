@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -109,7 +110,7 @@ public class PrincipalMain {
 				}
 				break;
 			case 4:
-				bool encontrado1 = false;
+				boolean encontrado1 = false;
 				List<Doctor> doctores = hospi.infoDoctor();
 				List<Pacient> pacientes = hospi.infoPaciente();
 				Pacient pacienteC;
@@ -120,6 +121,7 @@ public class PrincipalMain {
 					System.out.println(d.getNom());
 				}
 				String doctorCita = sc.nextLine();
+				doctorC = null;
 				for (Doctor d : doctores) {
 					if (d.getNom().equalsIgnoreCase(doctorCita)) {
 						encontrado1 = true;
@@ -132,7 +134,7 @@ public class PrincipalMain {
 				boolean encontrado2 = false;
 				System.out.println("Introduce el dni del paciente: ");
 				dni = sc.nextLine();
-
+				pacienteC = null;
 				for (Pacient p : pacientes) {
 					if (p.getDni().equals(dni)) {
 						pacienteC = p;
@@ -147,12 +149,20 @@ public class PrincipalMain {
 				System.out.println("introduce la fecha de la cita (DD/MM/YYYY)");
 				String ano = sc.nextLine();
 				if (encontrado1 && encontrado2) {
-					LocalDate a;
-					LocalTime t;
-					//conversion de las fechas
-					Cita generarCita = new Cita(pacienteC,doctorC,LocalDate a,LocalTime t);
+					LocalDate a = LocalDate.parse(ano, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+					LocalTime t = LocalTime.parse(hora, DateTimeFormatter.ofPattern("HH:mm"));
+					// conversion de las fechas
+					Cita generarCita = null;
+					try {
+						generarCita = new Cita(pacienteC, doctorC, a, t);
+					} catch (Exception e1) {
+						System.out.println(e1.getMessage());
+
+					}
 					hospi.sumarCita(generarCita);
 				}
+				break;
+			case 5:
 
 			}
 

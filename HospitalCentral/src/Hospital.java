@@ -131,10 +131,19 @@ public class Hospital {
 	 * @return true si estaba en la lista de citas y se ha eliminado
 	 */
 	public boolean quitarCita(String dni, LocalDate data, LocalTime hora) {
-		for (Cita c : citas) {
-			if (c.getData().equals(data) && c.getPaciente().dni.equals(dni) && c.getHora().equals(hora)) {
-				return citas.remove(c);
+
+		Iterator<Cita> itr = citas.iterator();
+		Cita element;
+
+		while (itr.hasNext()) {
+			// itr para quitar las citas
+			element = itr.next();
+			if (element.getData().equals(data) && element.getPaciente().dni.equals(dni)
+					&& element.getHora().equals(hora)) {
+				itr.remove();
+				return true;
 			}
+
 		}
 		return false;
 	}
@@ -201,6 +210,18 @@ public class Hospital {
 
 		return pacientes.size();
 
+	}
+
+	public boolean modificarEstadoCita(String dni, LocalDate data, LocalTime hora) {
+		for (Cita c : citas) {
+			if (c.getDoctor().getDni().equals(dni) && c.getData().equals(data) && c.getHora().equals(hora)) {
+				if (c.getEstat() != EstadoCita.CANCELADA) {
+					c.visitaRealizada();
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
