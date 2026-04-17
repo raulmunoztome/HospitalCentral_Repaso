@@ -168,7 +168,15 @@ public class PrincipalMain {
 
 		}
 	}
+	/*
+	for (Map.Entry<KeyType, ValueType> entry : mapa.entrySet()) {
 
+	    KeyType key = entry.getKey();
+	    ValueType value = entry.getValue();
+
+	    System.out.println(key + " -> " + value);
+	}
+	*/
 	public static void pintarMenu() {
 		System.out.println("INTRODUCE TU OPCION NUMERICA: ");
 		System.out.println("0 -> SALIR");
